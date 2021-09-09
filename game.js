@@ -6,14 +6,14 @@ let ctx = canvas.getContext("2d");
 let birdimg1 = new Image();
 let end = new Image();
 let end2 = new Image();
-let disPlayImg = new Image()
+let disPlayImg = new Image();
 let pipeTop = new Image();
 let pipeBot = new Image();
 
     birdimg1.src = "bird1.png";
     end.src = "end.png";
     end2.src = "reset.png";
-    disPlayImg.src = 'nen2.png'
+    disPlayImg.src = 'nen2.png';
     pipeTop.src = 'ongtren.png';
     pipeBot.src = "ongduoi.png";
 
@@ -37,16 +37,17 @@ pipe[0] = {
 }
  // bắt đầu tạo disPlay
 function disPlay() {
-    ctx.clearRect(0,0,canvas.width,canvas.height)
-    ctx.drawImage(disPlayImg,0,0)
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(disPlayImg,0,0);
     ctx.drawImage(birdimg1,bird.x,bird.y);
     bird.y+=dy;
-    dy *= 1.04
+    dy *= 1.04;
 
-    ctx.font = '16px'
-    ctx.fillStyle = 'red'
-    ctx.fillText('Score: '+score,5,20)
-    ctx.fillText('Max Score: '+ maxScore,580,20)
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'green';
+    ctx.fillText('Score: '+score,5,20);
+    ctx.fillStyle = 'blue';
+    ctx.fillText('Max Score: '+ maxScore,580,20);
     for (let i = 0; i < pipe.length; i++) {
         ctx.drawImage(pipeTop,pipe[i].x,pipe[i].y);
         ctx.drawImage(pipeBot,pipe[i].x,pipe[i].y + pipeDown);
@@ -76,14 +77,12 @@ function disPlay() {
                 ctx.drawImage(end,250,100),
                     ctx.drawImage(end2,290,270),
                     score=0
-
-
             );
 
         }
     }
 
-    requestAnimationFrame(disPlay)
+    requestAnimationFrame(disPlay);
 
 
 }
@@ -101,7 +100,7 @@ function printMousePos(e) {
     }
 }
 // và gọi hàm
-document.addEventListener("click", printMousePos)
+document.addEventListener("click", printMousePos);
 
 
 function start() {
@@ -120,5 +119,5 @@ function start() {
         y:0
     }
 
-    disPlay()
+    disPlay();
 }
