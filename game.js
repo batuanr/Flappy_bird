@@ -10,12 +10,22 @@ let disPlayImg = new Image();
 let pipeTop = new Image();
 let pipeBot = new Image();
 
-    birdimg1.src = "bird1.png";
-    end.src = "end.png";
-    end2.src = "reset.png";
-    disPlayImg.src = 'nen2.png';
-    pipeTop.src = 'ongtren.png';
-    pipeBot.src = "ongduoi.png";
+    birdimg1.src = "img/bird1.png";
+    end.src = "img/end.png";
+    end2.src = "img/reset.png";
+    disPlayImg.src = 'img/nen2.png';
+    pipeTop.src = 'img/ongtren.png';
+    pipeBot.src = "img/ongduoi.png";
+    // chèn thêm nhạc
+let dieAudio = new Audio();
+let hitAudio = new Audio();
+let pointAudio = new Audio();
+let wingAudio = new Audio();
+    dieAudio.src = 'audio/die.mp3';
+    hitAudio.src = 'audio/hit.mp3';
+    pointAudio.src = 'audio/point.mp3';
+    wingAudio.src = 'audio/wing.mp3';
+
 
 let maxScore = localStorage.getItem('score');
 let betweenPipe = 150;
@@ -63,22 +73,31 @@ function disPlay() {
         }
         if (pipe[i].x === bird.x){
             score++;
+            pointAudio.play();
 
             if (score > maxScore){
                 maxScore = score;
                 localStorage.setItem('score',score);
             }
         }
-        if (bird.y + birdimg1.height > canvas.height - 20 ||
-        bird.x + birdimg1.width >= pipe[i].x && bird.x <= pipe[i].x + pipeTop.width
+        if (bird.x + birdimg1.width >= pipe[i].x && bird.x <= pipe[i].x + pipeTop.width
             && (bird.y < pipe[i].y + pipeTop.height ||
                 bird.y + birdimg1.height > pipe[i].y + pipeDown )){
             return  (
+                hitAudio.play(),
                 ctx.drawImage(end,250,100),
                     ctx.drawImage(end2,290,270),
                     score=0
-            );
+            )
 
+        }
+        if (bird.y + birdimg1.height > canvas.height - 20){
+            return  (
+                dieAudio.play(),
+                ctx.drawImage(end,250,100),
+                    ctx.drawImage(end2,290,270),
+                    score=0
+            )
         }
     }
 
@@ -87,10 +106,13 @@ function disPlay() {
 
 }
 // cho bird nhảy lên
-document.addEventListener("keydown",  ()=>{
-    bird.y-=40;
-    dy = 1;
-})
+// document.addEventListener("keydown",  ()=>{
+//     if (bird.y+birdimg1.height < canvas.height - 20){
+//         bird.y-=40;
+//         wingAudio.play()
+//         dy = 1;
+//     }
+// })
 // hàm lấy tọa độ xy của chuột
 function printMousePos(e) {
     let cursorX = e.pageX;
@@ -120,4 +142,11 @@ function start() {
     }
 
     disPlay();
+    document.addEventListener("keydown",  ()=>{
+        if (bird.y+birdimg1.height < canvas.height - 20){
+            bird.y-=40;
+            wingAudio.play()
+            dy = 1;
+        }
+    })
 }
