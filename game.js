@@ -87,7 +87,7 @@ function disPlay() {
                 hitAudio.play(),
                 ctx.drawImage(end,250,100),
                     ctx.drawImage(end2,290,270),
-                    score=0
+                    score=0, pipe[0].x=canvas.width
             )
 
         }
@@ -96,7 +96,7 @@ function disPlay() {
                 dieAudio.play(),
                 ctx.drawImage(end,250,100),
                     ctx.drawImage(end2,290,270),
-                    score=0
+                    score=0, pipe[0].x=canvas.width
             )
         }
     }
@@ -106,18 +106,18 @@ function disPlay() {
 
 }
 // cho bird nhảy lên
-// document.addEventListener("keydown",  ()=>{
-//     if (bird.y+birdimg1.height < canvas.height - 20){
-//         bird.y-=40;
-//         wingAudio.play()
-//         dy = 1;
-//     }
-// })
+document.addEventListener("keydown",  ()=>{
+    if (bird.y+birdimg1.height < canvas.height - 20){
+        bird.y-=40;
+        wingAudio.play()
+        dy = 1;
+    }
+})
 // hàm lấy tọa độ xy của chuột
 function printMousePos(e) {
     let cursorX = e.pageX;
     let cursorY = e.pageY;
-    if (cursorX>= 300 && cursorX <= 345 && cursorY >= 280 && cursorY <= 345 && score === 0){
+    if (cursorX>= 300 && cursorX <= 345 && cursorY >= 280 && cursorY <= 345 && score === 0 && pipe[0].x==canvas.width){
         start()
     }
 }
@@ -142,11 +142,5 @@ function start() {
     }
 
     disPlay();
-    document.addEventListener("keydown",  ()=>{
-        if (bird.y+birdimg1.height < canvas.height - 20){
-            bird.y-=40;
-            wingAudio.play()
-            dy = 1;
-        }
-    })
+
 }
